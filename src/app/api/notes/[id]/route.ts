@@ -3,9 +3,10 @@ import { deleteNote } from "@/lib/store";
 
 export async function DELETE(
   _request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const result = deleteNote(params.id);
+  const { id } = await params;
+  const result = deleteNote(id);
   if (!result.ok) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
