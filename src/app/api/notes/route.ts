@@ -1,14 +1,11 @@
 import { NextResponse } from "next/server";
-import { getPrisma } from "@/lib/prisma";
+import { addNote, listNotes } from "@/lib/store";
 
 export async function GET() {
-  const prisma = getPrisma();
-  const notes = await prisma.note.findMany({ orderBy: { createdAt: "desc" } });
-  return NextResponse.json(notes);
+  return NextResponse.json(listNotes());
 }
 
 export async function POST(request: Request) {
-  const prisma = getPrisma();
   const body = await request.json();
   const title = String(body.title || "").trim();
   const content = String(body.content || "").trim();
@@ -20,6 +17,6 @@ export async function POST(request: Request) {
     );
   }
 
-  const note = await prisma.note.create({ data: { title, content } });
+  const note = addNote(title, content);
   return NextResponse.json(note, { status: 201 });
 }

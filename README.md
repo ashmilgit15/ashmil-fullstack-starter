@@ -4,8 +4,7 @@ A minimal full‑stack demo: create notes in the UI, stored in a SQLite database
 
 ## Stack
 - Next.js (App Router)
-- Prisma ORM
-- SQLite
+- In-memory store (no database required)
 
 ## Run locally
 ```bash
@@ -15,12 +14,7 @@ npm run dev
 Open http://localhost:3000
 
 ## Database
-The SQLite DB is stored at `prisma/dev.db` (via `DATABASE_URL` in `.env`).
-
-To reset migrations:
-```bash
-npx prisma migrate reset
-```
+Notes are stored in memory for this demo (no DB required).
 
 ## API
 - `GET /api/notes` → list notes
